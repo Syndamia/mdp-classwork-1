@@ -18,7 +18,7 @@ jobs:
         with:
           name: source-code
           path: .
-      - run: docker build -t mdp-classwork-1_image
+      - run: docker build -t mdp-classwork-1_image .
       - uses: actions/upload-artifact@v3
         with:
           name: built-container
