@@ -18,7 +18,7 @@ jobs:
         with:
           name: source-code
           path: .
-      - run: docker build -t syndamia/mdp-classwork-1:latest
+      - run: docker build -t syndamia/mdp-classwork-1:latest .
       - run: docker export syndamia/mdp-classwork-1:latest > mdp-classwork-1_image.tar
       - uses: actions/upload-artifact@v3
         with:
