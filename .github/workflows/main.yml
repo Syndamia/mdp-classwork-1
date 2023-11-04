@@ -19,7 +19,7 @@ jobs:
           name: source-code
           path: .
       - run: docker build -t syndamia/mdp-classwork-1:latest .
-      - run: docker export syndamia/mdp-classwork-1:latest > mdp-classwork-1_image.tar
+      - run: docker save -o mdp-classwork-1_image.tar syndamia/mdp-classwork-1:latest
       - uses: actions/upload-artifact@v3
         with:
           name: built-image
@@ -33,7 +33,7 @@ jobs:
         with:
           name: built-image
           path: .
-      - run: docker import ./mdp-classwork-1_image.tar syndamia/mdp-classwork-1:latest
+      - run: docker load -i ./mdp-classwork-1_image.tar
       - env:
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
         run: docker login -u syndamia -p "$DOCKERHUB_PASSWORD"
