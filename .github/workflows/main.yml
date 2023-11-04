@@ -21,7 +21,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t syndamia/mdp-classwork-1:latest .
       - name: Store Docker image into tar archive
-      - run: docker save -o mdp-classwork-1_image.tar syndamia/mdp-classwork-1:latest
+        run: docker save -o mdp-classwork-1_image.tar syndamia/mdp-classwork-1:latest
       - uses: actions/upload-artifact@v3
         with:
           name: built-image
