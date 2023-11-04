@@ -1,0 +1,39 @@
+name: mdp-classwork-1
+on: push
+jobs:
+  Clone-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@4
+      - uses: actions/upload-artifact@v3
+        with:
+          name: source-code
+          path: .
+
+  Build-container:
+    runs-on: ubuntu-latest
+    needs: Clone-repo
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: source-code
+          path: .
+      - run: docker build -t mdp-classwork-1_image
+      - uses: actions/upload-artifact@v3
+        with:
+          name: built-container
+          path: .
+
+  Push-container:
+    runs-on: ubuntu-latest
+    needs: Build-container
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: built-container
+          path: .
+      - env:
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - run: docker login -u syndamia -p "$DOCKERHUB_PASSWORD"
+      - run: docker tag mdp-classwork-1_image:latest syndamia/mdp-classwork-1:latest
+      - run: docker push syndamia/mdp-classwork-1:latest
