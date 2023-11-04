@@ -34,6 +34,6 @@ jobs:
           path: .
       - env:
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - run: docker login -u syndamia -p "$DOCKERHUB_PASSWORD"
+        run: docker login -u syndamia -p "$DOCKERHUB_PASSWORD"
       - run: docker tag mdp-classwork-1_image:latest syndamia/mdp-classwork-1:latest
       - run: docker push syndamia/mdp-classwork-1:latest
